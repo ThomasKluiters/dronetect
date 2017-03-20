@@ -18,7 +18,7 @@ public class ListYoutubeScraper implements YoutubeScraper {
      *
      * @param ids the collection of video ids
      */
-    public ListYoutubeScraper(final Collection<String> ids) {
+    public ListYoutubeScraper(final Iterable<String> ids) {
         this.ids = ids.iterator();
     }
 

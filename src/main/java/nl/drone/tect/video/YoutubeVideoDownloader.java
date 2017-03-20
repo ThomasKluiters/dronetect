@@ -3,9 +3,11 @@ package nl.drone.tect.video;
 import com.github.axet.vget.VGet;
 import com.github.axet.vget.info.VideoFileInfo;
 import com.github.axet.vget.info.VideoInfo;
+import nl.drone.tect.scraper.ListYoutubeScraper;
 import nl.drone.tect.scraper.YoutubeScraper;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -21,19 +23,24 @@ public class YoutubeVideoDownloader implements VideoDownloader {
      */
     private YoutubeScraper scraper;
 
-    private final String sourcePattern = "https://www.youtube.com?v=%s";
+    private final String sourcePattern = "https://www.youtube.com/watch?v=%s";
 
-    private final String destinationPattern = "/data/%s";
+    private final String destinationPattern = "data/%s";
+
+    public YoutubeVideoDownloader(YoutubeScraper scraper) {
+        this.scraper = scraper;
+    }
 
     public VideoDownloadResult downloadNext() {
         final String id = scraper.nextId();
         try {
             final URL source = new URL(String.format(sourcePattern, id));
             final File destination = new File(String.format(destinationPattern, id));
-
-            VGet vGet = new VGet(source, destination);
-            vGet.extract();
-            vGet.download();
+            if(destination.mkdir()) {
+                VGet vGet = new VGet(source, destination);
+                vGet.extract();
+                vGet.download();
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
