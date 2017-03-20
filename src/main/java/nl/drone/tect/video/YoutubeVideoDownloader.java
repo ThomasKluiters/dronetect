@@ -31,6 +31,15 @@ public class YoutubeVideoDownloader implements VideoDownloader {
         this.scraper = scraper;
     }
 
+    public void initialize() {
+        final File dataDirectory = new File("data");
+        if(!dataDirectory.isDirectory() || !dataDirectory.exists()) {
+            if(!dataDirectory.mkdir()) {
+                throw new RuntimeException("Could not create the data directory.");
+            }
+        }
+    }
+
     public VideoDownloadResult downloadNext() {
         final String id = scraper.nextId();
         try {
