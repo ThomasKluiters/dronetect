@@ -14,6 +14,11 @@
             <artifactId>google-api-services-youtube</artifactId>
             <version>v3-rev182-1.22.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.axet</groupId>
+            <artifactId>vget</artifactId>
+            <version>1.1.33</version>
+        </dependency>
     </dependencies>
 
 </project>
