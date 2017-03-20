@@ -31,7 +31,12 @@
             <artifactId>vget</artifactId>
             <version>1.1.33</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.bramp.ffmpeg</groupId>
+            <artifactId>ffmpeg</artifactId>
+            <version>0.6.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
     </dependencies>
 
 </project>
