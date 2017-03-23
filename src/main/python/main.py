@@ -1,6 +1,8 @@
 import sys
 from os import listdir, path
 
+import process_video
+
 def main(video_folder, database_location):
     """Process each video in the folder"""
     
@@ -28,9 +30,10 @@ def main(video_folder, database_location):
         
         # Process video
         print 'Processing `{}`...'.format(video_id) 
-        print video_location
-        print audio_location
+        process_video.process(video_location, audio_location, database_location)
         print
+        
+        
         
 if __name__ == "__main__":
 
