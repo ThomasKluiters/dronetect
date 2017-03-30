@@ -5,4 +5,13 @@ package nl.drone.tect.video;
  */
 public class VideoDownloadResult {
 
+    private final String id;
+
+    public VideoDownloadResult(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

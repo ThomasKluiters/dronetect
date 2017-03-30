@@ -65,6 +65,7 @@ public class QueryYoutubeScraper implements YoutubeScraper {
     public QueryYoutubeScraper(Collection<String> queries, int depth) {
         this.queries = new LinkedBlockingQueue<String>(queries);
         this.depth = depth;
+        this.ids = new LinkedBlockingQueue<>();
     }
 
     /**
@@ -110,6 +111,9 @@ public class QueryYoutubeScraper implements YoutubeScraper {
     }
 
     public String nextId() {
+        if(ids.isEmpty()) {
+            executeNext();
+        }
         return ids.poll();
     }
 
