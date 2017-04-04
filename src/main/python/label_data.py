@@ -33,8 +33,25 @@ def main(video_folder, database_location):
         if not path.exists(video_location) or not path.exists(audio_location):
             continue
         
-        # Label video
         print 'Labeling `{}`...'.format(video_id) 
+        
+        # Play video
+        print 'Playing video...'
+        cap = cv2.VideoCapture(video_location)
+        
+        while(cap.isOpened()):
+            ret, frame = cap.read()
+            if ret == True:
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                cv2.imshow('frame', gray)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            else:
+                break
+        
+        cap.release()
+        cv2.destroyAllWindows()
+        
         print
         
     # Commit and close database
