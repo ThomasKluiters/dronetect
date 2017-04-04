@@ -24,6 +24,7 @@ def main(video_folder, database_location):
     # Get data
     video_files = listdir(video_folder)
     video_ids   = [f.split('.')[0] for f in video_files if f.endswith('.avi')]
+    video_ids   = sorted(video_ids, key = lambda x: int(x.split('-')[-2]))
     
     # Set up audio playback
     pygame.init()
