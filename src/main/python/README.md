@@ -16,8 +16,18 @@ The `label_data.py` script is used to label testing/ training data into the foll
 * Category 2: 1-st person drone video
 * Category 3: Trash
 
-Usage:
+### Requirements
+
+Install PyGame:
+
+```bash
+sudo pip install pygame
+```
+
+### Usage
 
 ```bash
 python label_data.py /path/to/Videos path/to/database.db
 ```
+
+Follow the instructions in the terminal. Make sure to use `q` to quit, so your labels are saved to the database!
