@@ -3,6 +3,7 @@ import sqlite3
 import sys
 
 import cv2
+import pygame
 
 def main(video_folder, database_location):
     """Process each video in the folder"""
@@ -24,6 +25,9 @@ def main(video_folder, database_location):
     video_files = listdir(video_folder)
     video_ids   = [f.split('.')[0] for f in video_files if f.endswith('.avi')]
     
+    # Set up audio playback
+    pygame.init()
+    
     for video_id in video_ids:
         
         # Make sure both a .avi and .wav file are available for this id
@@ -35,8 +39,11 @@ def main(video_folder, database_location):
         
         print 'Labeling `{}`...'.format(video_id) 
         
+        # Play audio
+        pygame.mixer.music.load(audio_location)
+        pygame.mixer.music.play()
+        
         # Play video
-        print 'Playing video...'
         cap = cv2.VideoCapture(video_location)
         
         while(cap.isOpened()):
