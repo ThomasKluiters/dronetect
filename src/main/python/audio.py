@@ -10,25 +10,22 @@ def process(samples, f):
         samples = samples[:,0]
     specs, freqs, t, x = specgram(samples, NFFT=256, Fs=f)
     specs /= np.sum(specs)
-    plt.ylabel('Frequency [Hz]')
-    plt.xlabel('Time [sec]')
-    plt.show()
     
     summed = [sum(x) for x in specs]
-    plt.plot(freqs, summed)
-    plt.show()
-    
     band = [abs(x-5680)<250 for x in freqs]
     
     result = []
+    score = 0
     for i in range(len(summed)):
         if band[i]:
             result.append(summed[i])
+            score += summed[i]
         else:
             result.append(0)
-            
-    plt.plot(freqs, result)
-    plt.show()
+    
+    drone = score > 0.007
+    print drone
+    return drone
     
 if __name__ == '__main__':
     if len(sys.argv) == 3:
