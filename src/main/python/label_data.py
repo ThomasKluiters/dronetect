@@ -43,6 +43,14 @@ def main(video_folder, database_location):
             
             print 'Labeling `{}`...'.format(video_id) 
             
+            # Parse metadata from video_id
+            metadata = video_id.split('-')
+            db_video_id = ''.join(metadata[:-2])
+            db_start_time_ms = metadata[-2]
+            
+            print db_video_id
+            print db_start_time_ms
+            
             # Play audio
             pygame.mixer.music.load(audio_location)
             pygame.mixer.music.play()
