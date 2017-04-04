@@ -30,34 +30,52 @@ def main(video_folder, database_location):
     
     for video_id in video_ids:
         
-        # Make sure both a .avi and .wav file are available for this id
-        video_location = path.join(video_folder, '{}.avi'.format(video_id))
-        audio_location = path.join(video_folder, '{}.wav'.format(video_id))
+        labeled = False
         
-        if not path.exists(video_location) or not path.exists(audio_location):
-            continue
+        while not labeled:
         
-        print 'Labeling `{}`...'.format(video_id) 
-        
-        # Play audio
-        pygame.mixer.music.load(audio_location)
-        pygame.mixer.music.play()
-        
-        # Play video
-        cap = cv2.VideoCapture(video_location)
-        
-        while(cap.isOpened()):
-            ret, frame = cap.read()
-            if ret == True:
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                cv2.imshow('frame', gray)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
+            # Make sure both a .avi and .wav file are available for this id
+            video_location = path.join(video_folder, '{}.avi'.format(video_id))
+            audio_location = path.join(video_folder, '{}.wav'.format(video_id))
+            
+            if not path.exists(video_location) or not path.exists(audio_location):
+                continue
+            
+            print 'Labeling `{}`...'.format(video_id) 
+            
+            # Play audio
+            pygame.mixer.music.load(audio_location)
+            pygame.mixer.music.play()
+            
+            # Play video
+            cap = cv2.VideoCapture(video_location)
+            
+            while(cap.isOpened()):
+                ret, frame = cap.read()
+                if ret == True:
+                    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                    cv2.imshow('frame', gray)
+                    if cv2.waitKey(1) & 0xFF == ord('q'):
+                        break
+                else:
                     break
-            else:
-                break
-        
-        cap.release()
-        cv2.destroyAllWindows()
+            
+            cap.release()
+            cv2.destroyAllWindows()
+            for i in range (1,10):
+                cv2.waitKey(1)
+            
+            # Ask user for label
+            print 'Please pick one of the following options:'
+            print '\tLabel as 3rd-person drone video with sound: `1`'
+            print '\tLabel as 1st-person drone video with sound: `2`'
+            print '\tLabel as trash: `3`'
+            print '\tRewatch this clip: `r`'
+            print '\tQuit: `q`'
+            
+            label = raw_input('> ')
+            
+            labeled = True
         
         print
         
