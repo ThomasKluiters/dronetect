@@ -31,8 +31,9 @@ def main(video_folder, database_location):
     for video_id in video_ids:
         
         labeled = False
+        stop    = False
         
-        while not labeled:
+        while not labeled and not stop:
         
             # Make sure both a .avi and .wav file are available for this id
             video_location = path.join(video_folder, '{}.avi'.format(video_id))
@@ -75,8 +76,8 @@ def main(video_folder, database_location):
             print '\tLabel as 3rd-person drone video with sound: `1`'
             print '\tLabel as 1st-person drone video with sound: `2`'
             print '\tLabel as trash: `3`'
-            print '\tRewatch this clip: `r`'
-            print '\tQuit: `q`'
+            print '\tSave and quit: `q`'
+            print '\tRewatch this clip: `r` (or anything else)'
             
             user_input = raw_input('> ')
             
@@ -86,8 +87,14 @@ def main(video_folder, database_location):
                     (db_video_id, db_start_time_ms, int(user_input))
                 )
                 labeled = True
+            
+            elif user_input == 'q':
+                stop = True
         
         print
+        
+        if stop:
+            break
         
     # Commit and close database
     conn.commit()
