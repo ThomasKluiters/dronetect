@@ -19,7 +19,7 @@ def main(video_folder, database_location):
         
     # Connect to database
     conn = sqlite3.connect(database_location)
-    c = conn.cursor()
+    cursor = conn.cursor()
     
     # Get data
     video_files = listdir(video_folder)
@@ -47,9 +47,6 @@ def main(video_folder, database_location):
             metadata = video_id.split('-')
             db_video_id = ''.join(metadata[:-2])
             db_start_time_ms = metadata[-2]
-            
-            print db_video_id
-            print db_start_time_ms
             
             # Play audio
             pygame.mixer.music.load(audio_location)
@@ -81,9 +78,14 @@ def main(video_folder, database_location):
             print '\tRewatch this clip: `r`'
             print '\tQuit: `q`'
             
-            label = raw_input('> ')
+            user_input = raw_input('> ')
             
-            labeled = True
+            if user_input in ['1', '2', '3']:
+                cursor.execute(
+                    'INSERT INTO classifications VALUES (?, ?, ?)',
+                    (db_video_id, db_start_time_ms, int(user_input))
+                )
+                labeled = True
         
         print
         
