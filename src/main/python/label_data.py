@@ -49,6 +49,20 @@ def main(video_folder, database_location):
             db_video_id = ''.join(metadata[:-2])
             db_start_time_ms = metadata[-2]
             
+            # Check whether this clip is already labeled
+            query = '''
+                SELECT * FROM classifications
+                WHERE video_id = ?
+                AND start_time_ms = ?
+            '''
+            cursor.execute(query, (db_video_id, db_start_time_ms))
+            existing = cursor.fetchall()
+            
+            if len(existing) > 0:
+                labeled = True
+                print 'Already labeled.'
+                break
+            
             # Play audio
             pygame.mixer.music.load(audio_location)
             pygame.mixer.music.play()
@@ -87,6 +101,7 @@ def main(video_folder, database_location):
                     (db_video_id, db_start_time_ms, int(user_input))
                 )
                 labeled = True
+                print 'Labeled as {}'.format(user_input)
             
             elif user_input == 'q':
                 stop = True
