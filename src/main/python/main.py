@@ -33,8 +33,6 @@ def main(video_folder, database_location):
         process_video.process(video_location, audio_location, database_location)
         print
         
-        
-        
 if __name__ == "__main__":
 
     if len(sys.argv) == 3:
