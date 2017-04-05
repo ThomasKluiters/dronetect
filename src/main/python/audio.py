@@ -7,6 +7,7 @@ import numpy as np
 
 def process(samples, f):
     """Process an audio clip and decide if it contains drone-like sound"""
+    
     # Take only the first channel in stereo audio
     if not isinstance(samples[0], np.int16):
         samples = samples[:,0]
@@ -28,9 +29,7 @@ def process(samples, f):
             result.append(0)
     
     # Classify as drone if more than 0.7% of the sound is in then 5680 Hz range
-    drone = score > 0.007
-    print drone
-    return drone
+    return score > 0.007
     
 if __name__ == '__main__':
     if len(sys.argv) == 3:
