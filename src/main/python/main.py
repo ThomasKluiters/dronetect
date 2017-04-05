@@ -91,6 +91,10 @@ def main(video_folder, database_location):
     print 'False Positives (FP) =', false_positives
     print 'True Negatives  (TN) =', true_negatives
     print 'False Negatives (FN) =', false_negatives
+
+    print
+    print 'Recall    [TP / (TP + FN)] =', float(true_positives) / (true_positives + false_negatives)
+    print 'Precision [TP / (TP + FP)] =', float(true_positives) / (true_positives + false_positives)
         
 if __name__ == "__main__":
 
