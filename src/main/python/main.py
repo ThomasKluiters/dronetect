@@ -30,7 +30,10 @@ def main(video_folder, database_location):
         
         # Process video
         print 'Processing `{}`...'.format(video_id) 
-        process_video.process(video_location, audio_location, database_location)
+        category = process_video.process(video_location, audio_location, database_location)
+        
+        print 'Classified as category: {} ({})'.format(category, '?')
+        
         print
         
 if __name__ == "__main__":
