@@ -82,6 +82,15 @@ def main(video_folder, database_location):
         )
         
         print
+
+    print
+
+    print 'RESULTS:'
+    print
+    print 'True Positives  (TP) =', true_positives
+    print 'False Positives (FP) =', false_positives
+    print 'True Negatives  (TN) =', true_negatives
+    print 'False Negatives (FN) =', false_negatives
         
 if __name__ == "__main__":
 
