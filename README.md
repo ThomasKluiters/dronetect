@@ -10,3 +10,28 @@ The framework is capable of:
 1) Storing these labels in a database,
 1) Analyzing the audio in each clip to automatically label it as drone, and
 1) Evaluating its own performance against the labels in the database to calculate precision and recall.
+
+It consists of several components:
+
+* A Java YouTube video downloader/ splitter
+* A SQLite database of category labels
+* A Python script for playing back clips and labeling them
+* Several Python scripts to classify clips and evaluate classifier performance
+
+The sections below describe each component in detail.
+
+## Video Downloader
+
+[TO DO]
+
+## Database
+
+[TO DO]
+
+## Labeling Script
+
+[TO DO]
+
+## Classifier
+
+[TO DO]
