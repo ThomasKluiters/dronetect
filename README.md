@@ -134,10 +134,8 @@ To run the script:
 
 ```bash
 cd src/main/python
-python main.py path/to/Videos path/to/database.db path/to/sift/database_file
+python main.py path/to/Videos path/to/database.db
 ```
-
-(Note that the code will append `.db` to `path/to/sift/database_file`.)
 
 ### Results
 
