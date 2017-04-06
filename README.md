@@ -94,4 +94,16 @@ Follow the instructions in the terminal. Make sure to use `q` to quit, so your l
 
 ## Classifier
 
+The classifier assigns category labels to video clips in a folder, and uses the database of labels to evaluate its own performance. To assign labels, the classifier looks at both the `.wav` audio file and `.avi` video file.
+
+### Audio
+
+[TO DO]
+
+### Video
+
+[TO DO]
+
+### USage
+
 [TO DO]
