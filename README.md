@@ -64,7 +64,33 @@ The columns are:
 
 ## Labeling Script
 
-[TO DO]
+The labeling script is written in Python and called `label_data.py`. It connects to the database and then starts iterating over the video clips in the provided folder. If both a `.wav` and `.avi` are available for a video ID, the script checks whether the clip was already labeled. If it was, it's skipped. Otherwise, the script plays the video and audio and presents the user is with the following options:
+
+* Label clip as **Category 1**
+* Label clip as **Category 2**
+* Label clip as **Category 3**
+* Rewatch the clip
+* Save and quit
+
+Once the user calls the "Save and quit" option, the labels are saved to the database.
+
+### Setup
+
+Install dependencies:
+
+```bash
+sudo apt-get install python-pygame
+```
+### Usage
+
+Navigate to the Python source folder and run the script, passing the path to the folder of video clips you want to label as well as the location of the database you want to write to.
+
+```bash
+cd src/main/python
+python label_data.py /path/to/Videos path/to/database.db
+```
+
+Follow the instructions in the terminal. Make sure to use `q` to quit, so your labels are saved to the database!
 
 ## Classifier
 
