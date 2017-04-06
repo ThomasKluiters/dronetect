@@ -11,6 +11,7 @@ import nl.drone.tect.video.VideoDownloader;
 import nl.drone.tect.video.YoutubeVideoDownloader;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Thomas on 20-3-2017.
@@ -18,12 +19,17 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        YoutubeScraper scraper = new ListYoutubeScraper(Arrays.asList("y-rEI4bezWc"));
+        List<String> ids = Arrays.asList("mVPFsXI5nJc", "VwqKn1ziC0s");
+        YoutubeScraper scraper = new ListYoutubeScraper(ids);
         VideoDownloader downloader = new YoutubeVideoDownloader(scraper);
-        VideoDownloadResult result = downloader.downloadNext();
-        YoutubeVideoConverter converter = new YoutubeVideoConverter();
+        YoutubeVideoConverter converter = new YoutubeVideoConverter(500);
         converter.init();
-        converter.convert(result.getId());
+
+        for (int i = 0; i < 3; i++) {
+            VideoDownloadResult result = downloader.downloadNext();
+            converter.convert(result.getId());
+        }
+
     }
 
 }

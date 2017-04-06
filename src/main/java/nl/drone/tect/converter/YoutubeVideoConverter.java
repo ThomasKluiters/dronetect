@@ -18,10 +18,26 @@ public class YoutubeVideoConverter implements VideoConverter {
     private FFmpeg ffmpeg;
     private FFprobe ffprobe;
 
+    FFmpegExecutor executor;
+
+    private final long duration;
+
+    public YoutubeVideoConverter() {
+        this(2000);
+    }
+
+    public YoutubeVideoConverter(long duration) {
+        this.duration = duration;
+    }
+
     public void init() {
         try {
             ffmpeg = new FFmpeg("ffmpeg.exe");
             ffprobe = new FFprobe("ffprobe.exe");
+            executor = new FFmpegExecutor(ffmpeg, ffprobe);
+            if (!new File("data/scenes").exists()) {
+                new File("data/scenes").mkdir();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,30 +59,56 @@ public class YoutubeVideoConverter implements VideoConverter {
                 }
             }
 
+            System.out.println(audioPath);
 
-            FFmpegFormat format = ffprobe.probe(videoPath).getFormat();
-            FFmpegBuilder videoBuilder = ffmpeg.builder().addInput(videoPath);
-            FFmpegBuilder audioBuilder = ffmpeg.builder().addInput(audioPath);
+            FFmpegFormat videoFormat = ffprobe.probe(videoPath).getFormat();
+            FFmpegFormat audioFormat = ffprobe.probe(audioPath).getFormat();
 
-            final int duration = (int) Math.floor(format.duration);
-            for (int from = 0; from < duration; from += 2) {
-                final int to = Math.min(from + 2, duration);
+            final String path = "data/scenes/" + id;
+            if(new File(path).mkdir()) {
 
-                audioBuilder.addOutput(String.format("data/scenes/%s-%d-%d.wav", id, from, to))
-                        .setStartOffset(from, TimeUnit.SECONDS)
-                        .setDuration(to - from, TimeUnit.SECONDS)
-                        .done();
+                System.out.println(audioFormat.duration);
+                System.out.println(videoFormat.duration);
 
-                videoBuilder.addOutput(String.format("data/scenes/%s-%d-%d.avi", id , from, to))
-                        .setFormat("avi")
-                        .setStartOffset(from, TimeUnit.SECONDS)
-                        .setDuration(to - from, TimeUnit.SECONDS)
-                        .done();
+                double maxDuration = videoFormat.duration;
+                double from = 0;
+
+                final double duration = this.duration / 1000.0;
+                while (from < videoFormat.duration) {
+
+                    FFmpegBuilder videoBuilder = ffmpeg.builder().addInput(videoPath);
+                    FFmpegBuilder audioBuilder = ffmpeg.builder().addInput(audioPath);
+
+                    for (int i = 0; i < 200; i++) {
+                        final double to = Math.min(from + duration, maxDuration);
+
+                        final long toMillis = (long) (to * 1000);
+                        final long fromMillis = (long) (from * 1000);
+
+                        if (toMillis - fromMillis < 0) {
+                            continue;
+                        }
+
+                        audioBuilder.addOutput(String.format("%s/%s-%d-%d.wav", path, id, fromMillis, toMillis))
+                                .setFormat("wav")
+                                .setStartOffset(fromMillis, TimeUnit.MILLISECONDS)
+                                .setDuration(toMillis - fromMillis, TimeUnit.MILLISECONDS)
+                                .done();
+
+                        videoBuilder.addOutput(String.format("%s/%s-%d-%d.avi", path, id, fromMillis, toMillis))
+                                .setFormat("avi")
+                                .setStartOffset(fromMillis, TimeUnit.MILLISECONDS)
+                                .setDuration(toMillis - fromMillis, TimeUnit.MILLISECONDS)
+                                .done();
+
+                        from += duration;
+                    }
+
+                    executor.createJob(videoBuilder).run();
+                    executor.createJob(audioBuilder).run();
+
+                }
             }
-
-            FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
-            executor.createJob(videoBuilder).run();
-            executor.createJob(audioBuilder).run();
         } catch (IOException e) {
             e.printStackTrace();
         }
