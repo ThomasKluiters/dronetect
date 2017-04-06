@@ -106,7 +106,7 @@ The classifier takes advantage of this band to classify audio as drone-containin
 
 ### Video
 
-[TO DO]
+For video classification, there is a SIFT features database generated from images of the DJI Phantom 4 drone. The classifier extracts SIFT features from every fourth frame from a clip, and compares them to the database. If the minim score of all those frames is above the score threshold of 250, it is labeled as containing a drone.
 
 ### Classification
 
