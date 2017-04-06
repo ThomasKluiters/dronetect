@@ -1,10 +1,7 @@
 package nl.drone.tect;
 
-import com.google.common.collect.Lists;
-import nl.drone.tect.converter.VideoConverter;
 import nl.drone.tect.converter.YoutubeVideoConverter;
 import nl.drone.tect.scraper.ListYoutubeScraper;
-import nl.drone.tect.scraper.QueryYoutubeScraper;
 import nl.drone.tect.scraper.YoutubeScraper;
 import nl.drone.tect.video.VideoDownloadResult;
 import nl.drone.tect.video.VideoDownloader;

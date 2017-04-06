@@ -1,2 +1,2 @@
 # dronetect
-A Java solution for drone detection with multi media analysis.
+A Java and Python solution for drone detection with multi media analysis.

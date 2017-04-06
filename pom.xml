@@ -43,6 +43,7 @@
             <artifactId>youtubedl-java</artifactId>
             <version>master</version>
         </dependency>
+
     </dependencies>
 
 </project>
