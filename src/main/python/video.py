@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import sys
-import lib.image_search as image_search
+import includes.image_search as image_search
 import pickle
 
 def get_sift_distances(sift_query, base):
