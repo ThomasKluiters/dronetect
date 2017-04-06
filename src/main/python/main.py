@@ -58,7 +58,14 @@ def main(video_folder, database_location):
             AND start_time_ms = ?
         '''
         cursor.execute(query, (db_video_id, db_start_time_ms))
-        category_actual = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        
+        # (Skip if the video isn't labeled)
+        if result is None:
+            print 'No label - skipped'
+            continue
+            
+        category_actual = result[0]
 
         # Mark as TP, FP, TN, or FN
         if category_classifier == 1:
