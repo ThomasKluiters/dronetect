@@ -110,8 +110,24 @@ For video classification, there is a SIFT features database generated from image
 
 ### Classification
 
-[TO DO]
+Classification is done using the following rules:
+
+```python
+video_label = video.process(cap, sift_database)
+audio_label = audio.process(samples, samplerate)
+
+if audio_label and video_label:
+    return 1
+elif audio_label and not video_label:
+    return 2
+else:
+    return 3
+```
 
 ### Usage
+
+[TO DO]
+
+### Results
 
 [TO DO]
