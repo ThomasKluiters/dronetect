@@ -11,7 +11,13 @@ The framework is capable of:
 1) Analyzing the audio in each clip to automatically label it as drone, and
 1) Evaluating its own performance against the labels in the database to calculate precision and recall.
 
-It consists of several components:
+The categories in which the video clips are sorted are:
+
+* **Category 1**: 3-rd person drone videos with sound (videos taken _of_ a drone, with the sound of the drone)
+* **Category 2**: 1-st person drone videos with sound (videos taken _by_ a drone, with the sound of the drone)
+* **Category 3**: Trash (everything else)
+
+Dronetect consists of several components:
 
 * A Java YouTube video downloader/ splitter
 * A SQLite database of category labels
