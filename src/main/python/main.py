@@ -4,7 +4,7 @@ import sys
 
 import process_video
 
-def main(video_folder, database_location):
+def main(video_folder, database_location, sift_database_location):
     """Process each video in the folder"""
     
     # Validate parameters
@@ -15,7 +15,7 @@ def main(video_folder, database_location):
     if not path.exists(database_location):
         print 'Invalid database location: {}'.format(database_location)
         return
-    
+
     # Connect to database
     conn = sqlite3.connect(database_location)
     cursor = conn.cursor()
@@ -44,7 +44,8 @@ def main(video_folder, database_location):
         category_classifier = process_video.process(
             video_location,
             audio_location,
-            database_location
+            database_location,
+            sift_database_location
         )
 
         # Get actual label
@@ -98,7 +99,7 @@ def main(video_folder, database_location):
         
 if __name__ == "__main__":
 
-    if len(sys.argv) == 3:
-        main(sys.argv[1], sys.argv[2])
+    if len(sys.argv) == 4:
+        main(sys.argv[1], sys.argv[2], sys.argv[3])
     else:
         print "Please provide path to videos and database."
