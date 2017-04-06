@@ -22,7 +22,20 @@ The sections below describe each component in detail.
 
 ## Video Downloader
 
-[TO DO]
+The video video downloader is written in Java. It uses the [youtube-dl command line tool](https://rg3.github.io/youtube-dl/) to download videos, and [ffprobe](https://ffmpeg.org/ffprobe.html) and [ffmpeg](https://ffmpeg.org/) to convert the videos into their `.wav` and `.avi` audio/ video components and split them into 500-millisecond clips.
+
+It outputs both the whole video (in `/data`) and a directory (`/data/scenes/VideoID`) of `.wav` audio clips and `.avi` video clips, named `YouTubeID-starttime-endtime.wav` and `YouTubeID-starttime-endtime.avi` respectively. The clip starting 3 seconds into video [dQw4w9WgXcQ](https://www.youtube.com/watch?v=dQw4w9WgXcQ), for example, would be saved as files `dQw4w9WgXcQ-3000-3500.wav` and `dQw4w9WgXcQ-3000-3500.avi`.
+
+### Usage
+
+To download a single YouTube video by its ID:
+
+```bash
+javac src/main/java/nl/drone/tect/Main.java
+java Main.java dQw4w9WgXcQ
+```
+
+(If the URL of a video is `https://www.youtube.com/watch?v=dQw4w9WgXcQ`, for example, the YouTube ID is `dQw4w9WgXcQ`.)
 
 ## Database
 
