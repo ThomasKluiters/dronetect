@@ -20,6 +20,13 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.google.apis</groupId>
@@ -27,9 +34,14 @@
             <version>v3-rev182-1.22.0</version>
         </dependency>
         <dependency>
-            <groupId>com.github.axet</groupId>
-            <artifactId>vget</artifactId>
-            <version>1.1.33</version>
+            <groupId>net.bramp.ffmpeg</groupId>
+            <artifactId>ffmpeg</artifactId>
+            <version>0.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.sapher</groupId>
+            <artifactId>youtubedl-java</artifactId>
+            <version>master</version>
         </dependency>
 
     </dependencies>

@@ -72,10 +72,6 @@ public class QueryYoutubeScraper implements YoutubeScraper {
         this.queries = new LinkedBlockingQueue<String>(queries);
         this.ids = new LinkedBlockingQueue<>();
         this.depth = depth;
-
-        youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), httpRequest -> {
-
-        }).setApplicationName("School Project MMA 1").build();
     }
 
     /**

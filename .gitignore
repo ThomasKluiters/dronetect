@@ -24,6 +24,7 @@ data
 .idea/**/gradle.xml
 .idea/**/libraries
 .idea/*
+data/*
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 

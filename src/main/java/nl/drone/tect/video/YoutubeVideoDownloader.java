@@ -1,17 +1,10 @@
 package nl.drone.tect.video;
 
-import com.github.axet.vget.VGet;
-import com.github.axet.vget.info.VideoFileInfo;
-import com.github.axet.vget.info.VideoInfo;
-import nl.drone.tect.scraper.ListYoutubeScraper;
+import com.sapher.youtubedl.YoutubeDL;
+import com.sapher.youtubedl.YoutubeDLException;
+import com.sapher.youtubedl.YoutubeDLRequest;
+import com.sapher.youtubedl.YoutubeDLResponse;
 import nl.drone.tect.scraper.YoutubeScraper;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Thomas on 20-3-2017.
@@ -41,16 +34,23 @@ public class YoutubeVideoDownloader implements VideoDownloader {
     }
 
     public VideoDownloadResult downloadNext() {
-        final String id = scraper.nextId();
         try {
-            final URL source = new URL(String.format(sourcePattern, id));
-            final File destination = new File(String.format(destinationPattern, id));
-            if(destination.mkdir()) {
-                VGet vGet = new VGet(source, destination);
-                vGet.extract();
-                vGet.download();
-            }
-        } catch (MalformedURLException e) {
+            final String id = scraper.nextId();
+            String video = String.format(sourcePattern, id);
+            String directory = String.format(destinationPattern, id);
+            //C:\Python27>youtube-dl.exe -f bestaudio,bestvideo https://www.youtube.com/watch?v=y-rEI4bezWc&t=2
+            YoutubeDLRequest videoRequest = new YoutubeDLRequest(video, directory);
+            videoRequest.setOption("format", "bestvideo");
+            videoRequest.setOption("output", "video.%(ext)s");
+
+            YoutubeDLRequest audioRequest = new YoutubeDLRequest(video, directory);
+            audioRequest.setOption("format", "bestaudio");
+            audioRequest.setOption("output", "audio.%(ext)s");
+
+            YoutubeDL.execute(audioRequest);
+            YoutubeDL.execute(videoRequest);
+            return new VideoDownloadResult(id);
+        } catch (YoutubeDLException e) {
             e.printStackTrace();
         }
         return null;
