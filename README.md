@@ -98,12 +98,20 @@ The classifier assigns category labels to video clips in a folder, and uses the 
 
 ### Audio
 
-[TO DO]
+There is a clear band of higher responses at the band around `5680 Hz` in a spectogram of the audo in a clip that contains a drone with audio:
+
+![Drone spectogram](https://raw.githubusercontent.com/ThomasKluiters/dronetect/readme/images/drone%20spectogram.png)
+
+The classifier takes advantage of this band to classify audio as drone-containing or not. It calculates spectrogram for every audio clip (with normalized loudness). If at least 0.7% of the audio in a clip is in the 5680 Hz ± 250 Hz band, it is labeled as containing a drone.
 
 ### Video
 
 [TO DO]
 
-### USage
+### Classification
+
+[TO DO]
+
+### Usage
 
 [TO DO]
