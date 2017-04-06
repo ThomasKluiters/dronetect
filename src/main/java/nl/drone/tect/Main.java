@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        YoutubeScraper scraper = new ListYoutubeScraper(Arrays.asList("y-rEI4bezWc"));
+        YoutubeScraper scraper = new ListYoutubeScraper(Arrays.asList(args));
         VideoDownloader downloader = new YoutubeVideoDownloader(scraper);
         VideoDownloadResult result = downloader.downloadNext();
         YoutubeVideoConverter converter = new YoutubeVideoConverter();
