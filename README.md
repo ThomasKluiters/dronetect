@@ -102,7 +102,11 @@ There is a clear band of higher responses at the band around `5680 Hz` in a spec
 
 ![Drone spectogram](https://raw.githubusercontent.com/ThomasKluiters/dronetect/readme/images/drone%20spectogram.png)
 
-The classifier takes advantage of this band to classify audio as drone-containing or not. It calculates spectrogram for every audio clip (with normalized loudness). If at least 0.7% of the audio in a clip is in the 5680 Hz ± 250 Hz band, it is labeled as containing a drone.
+The classifier takes advantage of this band to classify audio as drone-containing or not. It calculates spectrogram for every audio clip (with normalized loudness) and sums each value of each frequency for the entire clip:
+
+![Drone sum](https://raw.githubusercontent.com/ThomasKluiters/dronetect/readme/images/drone%20sum.png)
+
+If at least 0.7% of the audio in a clip is in the 5680 Hz ± 250 Hz band (see the peak in the image above), it is labeled as containing a drone.
 
 ### Video
 
