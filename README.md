@@ -137,4 +137,16 @@ python main.py path/to/Videos path/to/database.db path/to/sift/database_file
 
 ### Results
 
-[TO DO]
+Once the script has run, it calculates its own performance:
+
+```bash
+RESULTS:
+
+True Positives  (TP) = 100
+False Positives (FP) = 0
+True Negatives  (TN) = 0
+False Negatives (FN) = 92
+
+Recall    [TP / (TP + FN)] = 0.520833333333
+Precision [TP / (TP + FP)] = 1.0
+```
