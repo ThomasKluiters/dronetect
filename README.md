@@ -39,7 +39,22 @@ java Main.java dQw4w9WgXcQ
 
 ## Database
 
-[TO DO]
+The database is used to store labels generated using the labeling script, and used by the classifier to evaluate its own performance. It consists of a single `classifications` table:
+
+```sql
+CREATE TABLE IF NOT EXISTS classifications (
+    video_id        TEXT    NOT NULL,
+    start_time_ms   INTEGER NOT NULL,
+    category        INTEGER NOT NULL CHECK (category >= 1 AND category <= 3),
+
+    PRIMARY KEY (video_id, start_time_ms)
+);
+```
+
+The columns are:
+* `video_id`: The YouTube video ID (e.g. `dQw4w9WgXcQ`)
+* `start_time_ms`: The time in the video at which this clip starts, in milliseconds (e.g. `2500`)
+* `category`: The category, which can be `1`, `2`, or `3`
 
 ## Labeling Script
 
